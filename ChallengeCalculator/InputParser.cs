@@ -19,7 +19,14 @@ namespace ChallengeCalculator
                 int result = 0;
                 if (int.TryParse(str, out result))
                 {
-                    numbers.Add(result);
+                    if (result <= 1000)
+                    {
+                        numbers.Add(result);
+                    }
+                    else
+                    {
+                        numbers.Add(0);
+                    }
                 }
                 else
                 {

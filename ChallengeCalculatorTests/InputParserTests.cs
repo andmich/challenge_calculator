@@ -23,5 +23,15 @@ namespace ChallengeCalculatorTests
             Assert.IsInstanceOf(typeof(int[]), result);
             Assert.AreEqual(expected, result);
         }
+
+        [TestCase(new int[] { 0, 0, 1 }, "10001, 100011, 1")]
+        [TestCase(new int[] { 1, 2, 0, 31, 0 }, "1, 2, 2536, 31, EGF")]
+        public void GetNumbers_InputNumberGreaterThan1000_ReturnsNumbers(int[] expected, string input)
+        {
+            var result = InputParser.GetNumbers(input);
+
+            Assert.IsInstanceOf(typeof(int[]), result);
+            Assert.AreEqual(expected, result);
+        }
     }
 }
