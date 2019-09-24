@@ -14,6 +14,8 @@ namespace ChallengeCalculatorTests
         [TestCase(new int[] { 1, 2, 3, 4}, "1,2,3,4")]
         [TestCase(new int[] { 1, 2, 0, 45 }, "1,2,ewrgv,45")]
         [TestCase(new int[] { 0, 0, 0, 1}, "0,saef,sefseaf,1")]
+        [TestCase(new int[] { 0, 0, 0, 1 }, "0\\nsaef\\nsefseaf\\n1")]
+        [TestCase(new int[] { 0, 1, 2, 1, 3, 4, 5 }, "0\\n1\\n2\\n1,3,4,5")]
         public void GetNumbers_InputWithAlphaNumeric_ReturnsNumbers(int[] expected, string input)
         {
             var result = InputParser.GetNumbers(input);

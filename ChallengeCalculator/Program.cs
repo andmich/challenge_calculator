@@ -10,7 +10,7 @@ namespace ChallengeCalculator
     {
         public static string[] Delimiters = new string[]
         {
-            ","
+            ",", "\\n"
         };
 
         static void Main(string[] args)
