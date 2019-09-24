@@ -54,6 +54,16 @@ namespace ChallengeCalculatorTests
             Assert.AreEqual(expected, result.ElementAt(0));
         }
 
+        [TestCase(new string[] { "***" }, "//[***]\\n11***22***33")]
+        [TestCase(new string[] { "[" }, "//[[]\\n1,2[3")]
+        [TestCase(new string[] { "[]][" }, "//[[]][]\\n1,2[]][3")]
+        public void GetCustomDelimiters_SingleAnyLengthDelimiter_ReturnsDelimiterList(string[] expected, string input)
+        {
+            var result = InputParser.GetCustomDelimiters(input);
+
+            Assert.AreEqual(expected.ToList(), result);
+        }
+
         [TestCase("1,2", "//;\\n1,2")]
         [TestCase("1,2;36,serbv,", "//;\\n1,2;36,serbv,")]
         [TestCase("1, 2, 3, 4, 5", "//;\\n1, 2, 3, 4, 5")]

@@ -19,11 +19,22 @@ namespace ChallengeCalculator
             // if string starts with // it contains a delimiter 
             if (input.StartsWith("//"))
             {
-                customDelimiters.Add(input.ElementAt(2).ToString());
-                return customDelimiters;
+                var indexOfFirstNewLine = input.IndexOf("\\n");
+                var customDelimiterSubstring = input.Substring(0, indexOfFirstNewLine).TrimStart(new char[] { '/', '/' });
+
+                // if the delimiter substring starts with [ and ends with ]               
+                // then we can retrieve everything between [ & ]
+                if (customDelimiterSubstring.StartsWith("[") && customDelimiterSubstring.EndsWith("]"))
+                {
+                    customDelimiters.Add(customDelimiterSubstring.Substring(1, customDelimiterSubstring.Length - 2));
+                }
+                else
+                {
+                    customDelimiters.Add(input.ElementAt(2).ToString());
+                }
             }
 
-            return null;
+            return customDelimiters;
         }
 
         /// <summary>
