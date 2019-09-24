@@ -15,6 +15,13 @@ namespace ChallengeCalculator
         /// <returns>Returns sum of numbers</returns>
         public static int Add(int[] numbers)
         {
+            // get negative numbers 
+            var negativeNumbers = numbers.Where(number => number < 0);
+            if (negativeNumbers.Any())
+            {
+                throw new Exception($"\nNegative numbers are not allowed: {string.Join(",", negativeNumbers.ToArray())}");
+            }
+
             int sum = 0;
             foreach(var number in numbers)
             {

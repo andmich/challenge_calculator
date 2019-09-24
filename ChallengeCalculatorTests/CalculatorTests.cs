@@ -21,5 +21,15 @@ namespace ChallengeCalculatorTests
 
             Assert.AreEqual(expectedSum, result);
         }
+
+        [TestCase(new int[] { 1, -5, -6, 2})]
+        [TestCase(new int[] { 0, -1 })]
+        [TestCase(new int[] { -1 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 5, 3, 9, -1 })]
+        public void Add_NegativeNumbers_ThrowsException(int[] input)
+        {
+            var negatives = input.Where(number => number < 0).ToArray();
+            Assert.Throws<Exception>(() => Calculator.Add(input), $"Negative numbers are not allowed: {string.Join(",", negatives)}");
+        }
     }
 }
