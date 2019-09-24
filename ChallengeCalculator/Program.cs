@@ -8,7 +8,7 @@ namespace ChallengeCalculator
 {
     public class Program
     {
-        public static string[] Delimiters = new string[]
+        public static List<string> DefaultDelimiters = new List<string>
         {
             ",", "\\n"
         };
@@ -23,8 +23,15 @@ namespace ChallengeCalculator
 
                 var userInput = Console.ReadLine();
 
+                // get custom delimiter 
+                var customDelimiters = InputParser.GetCustomDelimiters(userInput);
+                customDelimiters.AddRange(DefaultDelimiters);
+
+                // ensure user input does not include custom delimiters 
+                userInput = InputParser.RemoveDelimiterFromInput(userInput);
+
                 // get numbers 
-                var numbers = InputParser.GetNumbers(userInput);
+                var numbers = InputParser.GetNumbers(userInput, customDelimiters);
 
                 try
                 {
