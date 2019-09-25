@@ -56,8 +56,18 @@ namespace ChallengeCalculatorTests
 
         [TestCase(new string[] { "***" }, "//[***]\\n11***22***33")]
         [TestCase(new string[] { "[" }, "//[[]\\n1,2[3")]
-        [TestCase(new string[] { "[]][" }, "//[[]][]\\n1,2[]][3")]
+        [TestCase(new string[] { "@@" }, "//[@@]\\n1,2@@3")]
+        [TestCase(new string[] { "^%$" }, "//[^%$]\\n1,2^%$3")]
         public void GetCustomDelimiters_SingleAnyLengthDelimiter_ReturnsDelimiterList(string[] expected, string input)
+        {
+            var result = InputParser.GetCustomDelimiters(input);
+
+            Assert.AreEqual(expected.ToList(), result);
+        }
+
+        [TestCase(new string[] { "***", "**", "?" }, "//[***][**][?]\\n1***2*?3")]
+        [TestCase(new string[] { "?:", "#$%", "%!" }, "//[?:][#$%][%!]\\n1***2*?3")]
+        public void GetCustomDelimiters_MultipleAnyLengthDelimiters_ReturnsDelimiterList(string[] expected, string input)
         {
             var result = InputParser.GetCustomDelimiters(input);
 

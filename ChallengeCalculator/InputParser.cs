@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ChallengeCalculator
@@ -26,7 +27,14 @@ namespace ChallengeCalculator
                 // then we can retrieve everything between [ & ]
                 if (customDelimiterSubstring.StartsWith("[") && customDelimiterSubstring.EndsWith("]"))
                 {
-                    customDelimiters.Add(customDelimiterSubstring.Substring(1, customDelimiterSubstring.Length - 2));
+                    var regex = new Regex(@"\[.*?\]");
+                    var matches = regex.Matches(customDelimiterSubstring);
+
+                    foreach(var match in matches)
+                    {
+                        var matchAsString = match.ToString();
+                        customDelimiters.Add(match.ToString().Substring(1, matchAsString.Length - 2));
+                    }
                 }
                 else
                 {
