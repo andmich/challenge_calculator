@@ -8,16 +8,17 @@ namespace ChallengeCalculator
 {
     public class Program
     {
-        public static List<string> DefaultDelimiters = new List<string>
+        public static HashSet<string> DefaultDelimiters = new HashSet<string>
         {
             ",", "\\n"
         };
 
         static void Main(string[] args)
         {
-            bool quit = false;
+            // configure calculator
+            ConfigureCalculator();
 
-            while(!quit)
+            while (true)
             {
                 Console.Write("Please enter the numbers to add: ");
 
@@ -45,6 +46,51 @@ namespace ChallengeCalculator
                 }
 
                 Console.WriteLine("\n");
+            }
+        }
+
+        public static void ConfigureCalculator()
+        {
+            Console.Write(@"Allow \n as a delimiter? (y/n): ");
+            var allowNewLineDelimiter = Console.ReadLine().ToLower() == "y";
+
+            Console.Write(@"Deny negative numbers? (y/n): ");
+            var denyNegativeNumbers = Console.ReadLine().ToLower() == "y";
+
+            Console.Write(@"Set upper bound: ");
+            var upperBound = 1000;
+            int.TryParse(Console.ReadLine(), out upperBound);
+
+            if (allowNewLineDelimiter)
+            {
+                DefaultDelimiters.Add("\\n");
+            }
+            else
+            {
+                DefaultDelimiters.Remove("\\n");
+            }
+
+            InputParser.UpperBound = upperBound;
+            Calculator.DenyNegatives = denyNegativeNumbers;
+
+            Console.WriteLine("\n");
+        }
+
+        public static void AddNewLineDelimiterToDefaults(bool allowNewLineDelimiter)
+        {
+            if (allowNewLineDelimiter)
+            {
+                if (!DefaultDelimiters.Any(d => d == "\\n"))
+                {
+                    DefaultDelimiters.Add("\\n");
+                }
+            }
+            else
+            {
+                if (DefaultDelimiters.Any(d => d == "\\n"))
+                {
+                    DefaultDelimiters.Remove("\\n");
+                }
             }
         }
     }

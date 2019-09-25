@@ -41,6 +41,16 @@ namespace ChallengeCalculatorTests
             Assert.AreEqual(expected, result);
         }
 
+        [TestCase(new string[] {"***", "**", ";", ":", ">"},  new int[] { 1, 2, 3, 4, 5, 6 }, "1***2**3;4:5>6")]
+        [TestCase(new string[] { "**", "***", ";", ":", ">" }, new int[] { 1, 2, 3, 4, 5, 6 }, "1**2***3;4:5>6")]
+        public void GetNumbers_CustomDelimiters_ReturnsNumbers(string[] delimiters, int[] expected, string input)
+        {
+            var result = InputParser.GetNumbers(input, delimiters.ToList());
+
+            Assert.IsInstanceOf(typeof(int[]), result);
+            Assert.AreEqual(expected, result);
+        }
+
         [TestCase(";", "//;\\n1,2;3")]
         [TestCase(":", "//:\\n1,2:3")]
         [TestCase("\"", "//\"\\n1,2\"3")]

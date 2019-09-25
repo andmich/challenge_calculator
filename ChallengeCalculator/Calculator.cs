@@ -8,6 +8,7 @@ namespace ChallengeCalculator
 {
     public static class Calculator
     {
+        public static bool DenyNegatives = true;
         /// <summary>
         /// Adds the numbers in the array 
         /// </summary>
@@ -17,7 +18,7 @@ namespace ChallengeCalculator
         {
             // get negative numbers 
             var negativeNumbers = numbers.Where(number => number < 0);
-            if (negativeNumbers.Any())
+            if (DenyNegatives && negativeNumbers.Any())
             {
                 throw new Exception($"\nNegative numbers are not allowed: {string.Join(",", negativeNumbers.ToArray())}");
             }

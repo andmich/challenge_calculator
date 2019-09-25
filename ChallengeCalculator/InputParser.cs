@@ -9,6 +9,7 @@ namespace ChallengeCalculator
 {
     public static class InputParser
     {
+        public static int UpperBound = 1000;
         /// <summary>
         /// Retrieves custom delimiters from input
         /// </summary>
@@ -68,6 +69,8 @@ namespace ChallengeCalculator
         /// <returns>An array of numbers</returns>
         public static int[] GetNumbers(string input, List<string> delimiters)
         {
+            delimiters = delimiters.OrderByDescending(delimiter => delimiter.Length).ToList();
+
             // split string based on delimiters 
             string[] splitInput = input.Split(delimiters.ToArray(), StringSplitOptions.None);
             // convert each string into number 
@@ -77,7 +80,7 @@ namespace ChallengeCalculator
                 int result = 0;
                 if (int.TryParse(str, out result))
                 {
-                    if (result <= 1000)
+                    if (result <= UpperBound)
                     {
                         numbers.Add(result);
                     }
